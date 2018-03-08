@@ -1,0 +1,65 @@
+TOKEN
+	Name  = "HomeWork_SUPPORT"
+	Value  = "1"
+	Help  = "Main switch to enable HomeWork support in Project"
+	TokenType = Boolean
+	TargetEQU = Yes
+	TargetMAK = Yes
+	Master = Yes
+End
+
+PATH
+    Name  = "HomeWork_DIR"
+End
+
+TOKEN
+    Name  = "HomeWorkPeim_INF_SUPPORT"
+    Value  = "1"
+    Help  = "Main switch to enable HomeWorkDxe support in Project"
+    TokenType = Boolean
+    Token = "HomeWork_SUPPORT" "=" "1"
+End
+
+TOKEN
+	Name  = "HomeWorkDxe_INF_SUPPORT"
+	Value  = "1"
+	Help  = "Main switch to enable HomeWorkDxe support in Project"
+	TokenType = Boolean
+	Token = "HomeWork_SUPPORT" "=" "1"
+End
+
+ELINK
+	Name  = "$(HomeWork_DIR)/HomeWork.sd"
+	Parent  = "SETUP_DEFINITIONS"
+	Priority  = 9
+	InvokeOrder = AfterParent
+End
+
+ELINK
+	Name  = "$(HomeWork_DIR)/HomeWork.uni"
+	Parent  = "SetupStringFiles"
+	InvokeOrder = AfterParent
+End
+
+INFComponent
+	Name  = "HomeWorkPeim"
+	File  = "Pei/HomeWorkPeim.inf"
+	Package  = "Homework"
+	ModuleTypes  = "PEIM"
+	Token = "HomeWorkPeim_INF_SUPPORT" "=" "1"
+End
+
+#FFS_FILE
+#    Name = "HomeWorkPeim"
+#    FD_AREA = "FV_BB"
+#    INFComponent = "Homework.HomeWorkPeim"
+#End
+
+INFComponent
+	Name  = "HomeWorkDxe"
+	File  = "Dxe/HomeWorkDxe.inf"
+	Package  = "Homework"
+	ModuleTypes  = "DXE_DRIVER"
+	Token = "HomeWorkDxe_INF_SUPPORT" "=" "1"
+End
+

@@ -1,0 +1,15 @@
+<component>
+	name = "HomeWork"
+	category = eModule
+    Rank = 1007
+	LocalRoot = "Homework\"
+	RefName = "HomeWork"
+[INF]
+"Pei\HomeWorkPeim.inf"
+"Dxe\HomeWorkDxe.inf"
+[files]
+"HomeWork.sdl"	
+"HomeWork.uni"	
+"HomeWork.sd"	
+"HomeWork.h"	
+<endComponent>
