@@ -63,7 +63,8 @@
 
 [Sources.common]
   HomeWorkDxe.c
-
+  HomeWorkDxe.h
+  
 [Sources.ia32]
 
 [Sources.x64]
