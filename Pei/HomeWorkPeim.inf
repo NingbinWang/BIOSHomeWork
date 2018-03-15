@@ -69,7 +69,6 @@
 [Sources.x64]
 
 [Packages]
-  OemPkg/OemPkg.dec
   MdePkg/MdePkg.dec
   AgesaPkg/AgesaPkg.dec
   AmiCompatibilityPkg/AmiCompatibilityPkg.dec
@@ -85,7 +84,6 @@
   HobLib
   PeimEntryPoint
   BaseMemoryLib
-  OEMLib
   PeiServicesLib
 
 [Ppis]

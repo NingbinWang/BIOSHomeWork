@@ -3,14 +3,19 @@
 #endif
 #ifdef ASUS_ADVANCED_FORM_SET     
    #ifdef FORM_SET_GOTO 
+    SEPARATOR
+        text
+        help = STRING_TOKEN(STR_EMPTY),
+        text = STRING_TOKEN(STR_HOMEWORK_TEXT),
+        text = STRING_TOKEN(STR_HOMEWORK_TEXT_VALUE);
      // Define goto commands for the forms defined in this file    
     grayoutif ideqval SYSTEM_ACCESS.Access == SYSTEM_PASSWORD_USER; 
         oneof varid = SETUP_DATA.HomeWorkoption,
-		prompt=STRING_TOKEN(STR_MODULE_ITEM_PROMPT),
-		help=STRING_TOKEN(STR_MODULE_ITEM_HELP),
+		prompt=STRING_TOKEN(STR_HOMEWORK_FORM),
+	    help=STRING_TOKEN(STR_HOMEWORK_FORM_HELP),
 		option text=STRING_TOKEN(STR_HOMEWORK_VALUE0),value=0,flags=DEFAULT|RESET_REQUIRED;
 		option text=STRING_TOKEN(STR_HOMEWORK_VALUE1),value=1,flags=RESET_REQUIRED;
-		option text=STRING_TOKEN(STR_HOMEWORK_VALUE2),value=1,flags=RESET_REQUIRED;
+		option text=STRING_TOKEN(STR_HOMEWORK_VALUE2),value=2,flags=RESET_REQUIRED;
 	    endoneof;
     endif;    
  #endif //FORM_SET_FORM    

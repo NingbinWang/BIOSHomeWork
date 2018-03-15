@@ -39,7 +39,7 @@
 
 extern EFI_GUID gEfiHomeWorkProtocolGuid;
 typedef EFI_STATUS (* HOMEWORK_HOB_READ) (
-    IN  UINT8 device
+    OUT  UINT8 *device
    
 );
 

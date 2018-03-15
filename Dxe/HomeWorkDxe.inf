@@ -70,17 +70,21 @@
 [Sources.x64]
 
 [Packages]
-  OemPkg/OemPkg.dec
   MdePkg/MdePkg.dec
   AgesaPkg/AgesaPkg.dec
   AmiCompatibilityPkg/AmiCompatibilityPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
 
 [LibraryClasses]
   BaseLib
-  OEMLib
   UefiLib
   UefiDriverEntryPoint
   AmiDxeLib
+  PciLib
+  HiiLib
 
 [Depex]
   TRUE
+  
+[Protocols]
+  gEfiHiiStringProtocolGuid

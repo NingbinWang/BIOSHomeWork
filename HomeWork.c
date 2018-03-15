@@ -12,46 +12,55 @@
 //**********************************************************************
 //**********************************************************************
 
-#include <Library/HobLib.h>
-#include <Library/BaseLib.h>
+//**********************************************************************
+// $Header: /Alaska/Tools/template.c 6     1/13/10 2:13p Felixp $
+//
+// $Revision: 6 $
+//
+// $Date: 1/13/10 2:13p $
+//**********************************************************************
+// Revision History
+// ----------------
+// $Log: /Alaska/Tools/template.c $
+// 
+// 6     1/13/10 2:13p Felixp
+// 
+//**********************************************************************
+//<AMI_FHDR_START>
+//
+// Name:  <This File's Name>
+//
+// Description:	
+//
+//<AMI_FHDR_END>
+//**********************************************************************
+#include "HomeWork.h"
 #include <Setup.h>
-#include "..\HomeWork.h"
-#include <Ppi/ReadOnlyVariable2.h>
-#include <Library/PeimEntryPoint.h>
-#include <Library/BaseMemoryLib.h>
-#include <Library/PeiServicesLib.h>
-
-EFI_STATUS HomeWorkPeimEntryPoint(
-        IN       EFI_PEI_FILE_HANDLE  FileHandle,
-        IN CONST EFI_PEI_SERVICES     **PeiServices
-)
-{
-    HOMEWORK_HOB                      *homeworkhob = NULL;
-    EFI_GUID                           homeworkHobGuid = HOMEWORK_HOB_GUID;
-    EFI_STATUS                         Status;
-    EFI_GUID                          SetupGuid = SETUP_GUID;
-    EFI_PEI_READ_ONLY_VARIABLE2_PPI   *ReadOnlyVariable;
-    UINTN                              VariableSize;
-    SETUP_DATA                         SetupData;
-    Status = PeiServicesLocatePpi(&gEfiPeiReadOnlyVariable2PpiGuid, 0, NULL, &ReadOnlyVariable);
-    VariableSize = sizeof(SETUP_DATA);
-    Status = ReadOnlyVariable->GetVariable(ReadOnlyVariable, L"Setup", &SetupGuid, NULL, &VariableSize, &SetupData);
- 
-    if (EFI_ERROR(Status)) {
-        return Status;
-    }
-
-    Status = (*PeiServices)->CreateHob (
-                               PeiServices,
-                               EFI_HOB_TYPE_GUID_EXTENSION,
-                               sizeof(HOMEWORK_HOB),
-                               &homeworkhob);
-    if (EFI_ERROR(Status)) {
-        return Status;
-    }
-    homeworkhob->EfiHobGuidType.Name=homeworkHobGuid;
-    homeworkhob->homeworkdata=SetupData.HomeWorkoption;                 
-	return EFI_SUCCESS;
+#include <Uefi.h>
+#include <AmiLib.h>
+#include <AmiDxeLib.h>
+#include <Library/HiiLib.h>
+//#include <OEMLib.h>
+VOID
+InitHomeWorkStrings (
+  EFI_HII_HANDLE HiiHandle,
+  UINT16         Class
+  )
+{      
+       UINT16              Value;
+       UINTN               ValueSize;
+       EFI_STATUS              Status;
+       Status = pRS->GetVariable(L"Homeworkdeviceid",
+           &gHomeWorkDeviceGuid,
+           NULL,
+           &ValueSize,
+           &Value);
+   //    OEM_TRACE("InitHomeWorkStrings=%x\n",Value);
+       if (!EFI_ERROR(Status)) {
+           InitString(HiiHandle, STRING_TOKEN(STR_HOMEWORK_TEXT_VALUE), L"%x",Value);  
+       }
+    
+   
 }
 
 //**********************************************************************

@@ -1,7 +1,7 @@
 <component>
 	name = "HomeWork"
 	category = eModule
-    Rank = 1007
+	Rank = 1007
 	LocalRoot = "Homework\"
 	RefName = "HomeWork"
 [INF]
@@ -12,4 +12,5 @@
 "HomeWork.uni"	
 "HomeWork.sd"	
 "HomeWork.h"	
+"HomeWork.c"	
 <endComponent>

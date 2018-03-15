@@ -44,6 +44,13 @@ typedef struct {
   EFI_HOB_GUID_TYPE    EfiHobGuidType; 
   UINT8    homeworkdata;  
 } HOMEWORK_HOB;
+#define HOMEWOORK_DEVICEID_VARIABLE_GUID  \
+        {0x566d3644, 0x8590, 0x492c, 0xbe, 0x42, 0x4e, 0xf6, 0x3b, 0xa5, 0xde, 0xb7}
+
+EFI_GUID gHomeWorkDeviceGuid = HOMEWOORK_DEVICEID_VARIABLE_GUID;
+
+#define HOMEWOORK_VARIABLE_ATTRIBUTES \
+    (EFI_VARIABLE_NON_VOLATILE | EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS)
 
 #ifdef __cplusplus
 extern "C" {

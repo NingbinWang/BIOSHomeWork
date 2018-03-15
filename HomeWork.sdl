@@ -49,11 +49,17 @@ INFComponent
 	Token = "HomeWorkPeim_INF_SUPPORT" "=" "1"
 End
 
-#FFS_FILE
-#    Name = "HomeWorkPeim"
-#    FD_AREA = "FV_BB"
-#    INFComponent = "Homework.HomeWorkPeim"
-#End
+ELINK
+    Name = "InitHomeWorkStrings,"
+    Parent = "SetupStringInit"
+    InvokeOrder = AfterParent
+End
+
+ELINK
+    Name  = "$(HomeWork_DIR)/HomeWork.c"
+    Parent  = "SetupCallbackFiles"
+    InvokeOrder = AfterParent
+End
 
 INFComponent
 	Name  = "HomeWorkDxe"

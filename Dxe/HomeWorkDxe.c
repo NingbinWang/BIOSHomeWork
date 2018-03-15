@@ -13,13 +13,14 @@
 //**********************************************************************
 
 #include <AmiDxeLib.h>
-#include <OEMLib.h>
 #include "..\HomeWork.h"
 #include <Uefi.h>
 #include "HomeWorkDxe.h"
+#include <Library/PciLib.h>
+#include <Library/HiiLib.h>
 
 EFI_STATUS HomeWorkHobread(
-        IN  UINT8 device  
+        OUT  UINT8 *device  
 )
 {
        EFI_GUID                GuidHob = HOB_LIST_GUID;
@@ -37,7 +38,7 @@ EFI_STATUS HomeWorkHobread(
                        break;
        }
        if (!EFI_ERROR(Status)){
-                OEM_TRACE("device=%d,data=%d\n",device,Homeworkhob->homeworkdata);
+                *device = Homeworkhob->homeworkdata;
        }
     return Status;
 }
@@ -48,7 +49,15 @@ EFI_STATUS HomeWorkPciread(
            IN  UINT8 funcnum
 )
 {
-    OEM_TRACE("bus=%d,dev=%d,func=%d\n",busnum,devicenum,funcnum);
+    UINT16 Value;
+    Value = PciRead16(PCI_LIB_ADDRESS(busnum,devicenum,funcnum,0x02));
+    pRS->SetVariable(
+            L"Homeworkdeviceid",
+            &gHomeWorkDeviceGuid,
+            HOMEWOORK_VARIABLE_ATTRIBUTES,
+            sizeof(Value),
+            &Value
+          );
     return EFI_SUCCESS;
 }
 
@@ -65,14 +74,18 @@ VOID HomeWorkDxeProtocolCallback(
 
 {
     EFI_STATUS                             Status;
+    UINT8                                  device;
     EFI_HOMEWORKINTERFACE_PROTOCOL         *HomeworkProtocolinterface;
     Status = pBS->LocateProtocol(&gEfiHomeWorkProtocolGuid,
                                  NULL,
                                  &HomeworkProtocolinterface );
     if (!EFI_ERROR(Status)) 
     {
-        Status = HomeworkProtocolinterface->HomeWorkHobread(1); 
-        Status = HomeworkProtocolinterface->HomeWorkPciread(0,0,0);
+        Status = HomeworkProtocolinterface->HomeWorkHobread(&device);
+        if (!EFI_ERROR(Status)){
+           Status = HomeworkProtocolinterface->HomeWorkPciread(0,device,0);
+           
+        }
     }
 }
 
